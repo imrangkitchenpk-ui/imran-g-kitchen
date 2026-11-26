@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Imran G Kitchen</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#fffaf5;color:#292929}
+header{background:#f47721;color:white;text-align:center;padding:28px 15px}
+header h1{margin:0;font-size:30px}
+header p{margin:8px 0 0}
+nav{background:#fff;padding:13px;text-align:center;box-shadow:0 2px 6px #ddd}
+nav a{color:#d95d0b;text-decoration:none;font-weight:bold;margin:0 12px}
+h2{text-align:center;color:#e66a16;margin-top:28px}
+.intro{text-align:center;padding:15px}
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:15px;padding:15px;max-width:850px;margin:auto}
+.item{background:white;border-radius:12px;padding:15px;text-align:center;box-shadow:0 2px 9px #ead9ca}
+.food{font-size:48px}
+.item h3{margin:8px 0}
+.price{color:#e66a16;font-weight:bold}
+button{background:#f47721;color:white;border:0;padding:11px 16px;border-radius:7px;font-weight:bold;cursor:pointer}
+button:hover{background:#d95d0b}
+.cart{background:white;padding:18px;margin:20px auto;max-width:600px;border-radius:12px;box-shadow:0 2px 9px #ead9ca}
+.cart p{border-bottom:1px solid #eee;padding:7px}
+footer{background:#292929;color:white;text-align:center;padding:22px;margin-top:30px}
+</style>
+</head>
+<body>
+<header>
+<h1>🍽️ Imran G Kitchen</h1>
+<p>Fresh Food • Great Taste • Made with Love</p>
+</header>
+<nav>
+<a href="#menu">Our Menu</a>
+<a href="#cart">My Cart</a>
+</nav>
+<div class="intro">
+<h2>Welcome to Imran G Kitchen!</h2>
+<p>Order your favourite food easily on WhatsApp.</p>
+</div>
+<h2 id="menu">Our Menu</h2>
+<div class="menu">
+<div class="item">
+<div class="food">🍔</div>
+<h3>Zinger Burger</h3>
+<p class="price">Rs. 350</p>
+<button onclick="add('Zinger Burger',350)">Add to Cart</button>
+</div>
+<div class="item">
+<div class="food">🍕</div>
+<h3>Pizza</h3>
+<p class="price">Rs. 800</p>
+<button onclick="add('Pizza',800)">Add to Cart</button>
+</div>
+<div class="item">
+<div class="food">🍟</div>
+<h3>French Fries</h3>
+<p class="price">Rs. 200</p>
+<button onclick="add('French Fries',200)">Add to Cart</button>
+</div>
+<div class="item">
+<div class="food">🥤</div>
+<h3>Cold Drink</h3>
+<p class="price">Rs. 100</p>
+<button onclick="add('Cold Drink',100)">Add to Cart</button>
+</div>
+</div>
+<div class="cart" id="cart">
+<h2>🛒 Your Cart</h2>
+<div id="items">Your cart is empty.</div>
+<h3 id="total">Total: Rs. 0</h3>
+<button onclick="order()">Order on WhatsApp</button>
+</div>
+<footer>
+<p>Imran G Kitchen</p>
+<p>Thank you for choosing us! ❤️</p>
+</footer>
+<script>
+let cart=[];
+function add(name,price){
+cart.push({name,price});
+showCart();
+}
+function showCart(){
+let box=document.getElementById('items');
+if(!cart.length){box.innerHTML='Your cart is empty.';}
+else{box.innerHTML=cart.map(x=>'<p>'+x.name+' — Rs. '+x.price+'</p>').join('');}
+let total=cart.reduce((s,x)=>s+x.price,0);
+document.getElementById('total').innerText='Total: Rs. '+total;
+}
+function order(){
+if(!cart.length){alert('Please add food to your cart first.');return;}
+let message='Assalam o Alaikum! I want to order:%0A';
+cart.forEach(x=>message+=encodeURIComponent(x.name+' - Rs. '+x.price)+'%0A');
+let total=cart.reduce((s,x)=>s+x.price,0);
+message+='Total: Rs. '+total;
+let phone='923001234567';
+window.open('https://wa.me/'+phone+'?text='+message,'_blank');
+}
+</script>
+</body>
+</html>
